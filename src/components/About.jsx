@@ -1,7 +1,7 @@
 const credentials = [
   { icon: "🎓", text: "MPT — Sports Medicine" },
   { icon: "🩺", text: "Full-time practicing physiotherapist" },
-  { icon: "🏃", text: "500+ athletes guided through rehab" },
+  { icon: "🏃", text: "50+ athletes guided through rehab" },
   { icon: "🎯", text: "Sport-specific return-to-play protocols" },
 ];
 
@@ -15,7 +15,7 @@ export default function About() {
             <p>
               With a <strong>Master of Physiotherapy (MPT) in Sports Medicine</strong>,
               I brings advanced clinical expertise to every session. Currently practicing as a
-              <strong>TO BE FILLED</strong>
+              <strong> TO BE FILLED</strong>
               {/* <strong>full-time sports physiotherapist</strong>,
               helping athletes of every level return to the field with confidence. */}
             </p>

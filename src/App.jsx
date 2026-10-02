@@ -5,6 +5,7 @@ import About from "./components/About";
 import Skills from "./components/Skills";
 import Testimonials from "./components/Testimonials";
 import TestimonialForm from "./components/TestimonialForm";
+import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
       <Skills />
       <Testimonials version={version} />
       <TestimonialForm onSuccess={() => setVersion((v) => v + 1)} />
+      <Contact />
       <Footer />
     </>
   );

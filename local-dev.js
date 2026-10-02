@@ -33,16 +33,19 @@ if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
 // --- Import the real serverless handlers ---
 const getTestimonials = (await import("./api/get-testimonials.js")).default;
 const addTestimonial = (await import("./api/add-testimonial.js")).default;
+const contact = (await import("./api/contact.js")).default;
 
 const app = express();
 app.use(express.json()); // parse JSON request bodies (needed by the POST route)
 
-// --- Serve the static frontend (index.html, style.css, app.js) ---
-app.use(express.static(__dirname));
+// --- Serve the built frontend (from dist/). Run `npm run build` first. ---
+// This lets local-dev.js serve the whole site + API on one port.
+app.use(express.static(path.join(__dirname, "dist")));
 
 // --- Mount the API routes (identical to how Vercel maps /api/*) ---
 app.get("/api/get-testimonials", getTestimonials);
 app.post("/api/add-testimonial", addTestimonial);
+app.post("/api/contact", contact);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
