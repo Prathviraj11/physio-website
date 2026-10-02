@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. [Name], MPT (Sports) — Sports Physiotherapist</title>
+  <meta name="description" content="Evidence-based sports physiotherapy and rehabilitation by Dr. [Name], MPT (Sports Medicine)." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <span class="logo">Dr. <span>[Name]</span></span>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#skills">Expertise</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#submit" class="btn btn-small">Share Your Story</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="container">
+      <p class="hero-eyebrow">Sports Physiotherapist · MPT (Sports Medicine)</p>
+      <h1>Get back to movement.<br />Stronger than before.</h1>
+      <p class="hero-sub">
+        Evidence-based rehabilitation for athletes and active people — from acute
+        sports injuries to full performance recovery.
+      </p>
+      <div class="hero-actions">
+        <a href="#testimonials" class="btn btn-primary">Read Patient Stories</a>
+        <a href="#about" class="btn btn-ghost">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== About / Credentials ===== -->
+  <section id="about" class="section">
+    <div class="container">
+      <h2 class="section-title">About Dr. [Name]</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            With a <strong>Master of Physiotherapy (MPT) in Sports Medicine</strong>,
+            Dr. [Name] brings advanced clinical expertise to every session. She is
+            currently practicing as a <strong>full-time sports physiotherapist</strong>,
+            helping athletes of every level return to the field with confidence.
+          </p>
+          <p>
+            Her practice blends modern manual therapy, movement science, and
+            sport-specific return-to-play protocols — so treatment isn't just about
+            fixing an injury, but preventing the next one.
+          </p>
+        </div>
+        <ul class="credential-list">
+          <li><span>🎓</span> MPT — Sports Medicine</li>
+          <li><span>🩺</span> Full-time practicing physiotherapist</li>
+          <li><span>🏃</span> 500+ athletes guided through rehab</li>
+          <li><span>🎯</span> Sport-specific return-to-play protocols</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Skills ===== -->
+  <section id="skills" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Rehabilitation Expertise</h2>
+      <div class="skills-grid">
+        <div class="card skill-card"><h3>🦵 Knee &amp; Ligament Rehab</h3><p>ACL, MCL &amp; meniscus recovery with progressive return-to-sport training.</p></div>
+        <div class="card skill-card"><h3>🦴 Shoulder &amp; Rotator Cuff</h3><p>Repair and impingement rehab for throwers and overhead athletes.</p></div>
+        <div class="card skill-card"><h3>🦶 Ankle &amp; Achilles Care</h3><p>Sprain management, taping, and Achilles tendinopathy protocols.</p></div>
+        <div class="card skill-card"><h3>🧍 Back &amp; Spine Rehab</h3><p>Low-back and disc injury management with core retraining.</p></div>
+        <div class="card skill-card"><h3>⚡ Sports Injury Management</h3><p>Acute first aid, on-field assessment, and post-injury guidance.</p></div>
+        <div class="card skill-card"><h3>📈 Performance Recovery</h3><p>Return-to-play testing, load management, and injury prevention plans.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Testimonials (fetched via GET /api/get-testimonials) ===== -->
+  <section id="testimonials" class="section">
+    <div class="container">
+      <h2 class="section-title">What My Patients Say</h2>
+      <div id="testimonials-status" class="status-msg" hidden></div>
+      <div id="testimonials-grid" class="testimonials-grid" aria-live="polite">
+        <!-- Populated via GET /api/get-testimonials -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Submit Testimonial (POST /api/add-testimonial) ===== -->
+  <section id="submit" class="section section-alt">
+    <div class="container container-narrow">
+      <h2 class="section-title">Share Your Recovery Story</h2>
+      <form id="testimonial-form" novalidate>
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" placeholder="e.g. Rahul S." required maxlength="100" />
+        </div>
+
+        <div class="form-group">
+          <label for="rating">Rating</label>
+          <div id="rating-picker" class="rating-picker" role="radiogroup" aria-label="Choose a rating from 1 to 5 stars">
+            <button type="button" class="star" data-value="1" aria-label="1 star">★</button>
+            <button type="button" class="star" data-value="2" aria-label="2 stars">★</button>
+            <button type="button" class="star" data-value="3" aria-label="3 stars">★</button>
+            <button type="button" class="star" data-value="4" aria-label="4 stars">★</button>
+            <button type="button" class="star" data-value="5" aria-label="5 stars">★</button>
+          </div>
+          <input type="hidden" id="rating" name="rating" />
+        </div>
+
+        <div class="form-group">
+          <label for="review">Your Experience</label>
+          <textarea id="review" name="review" rows="4"
+            placeholder="Tell us how your recovery went…" required maxlength="2000"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="submit-btn">Submit Testimonial</button>
+        <p id="form-status" class="status-msg" hidden></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> Dr. [Name], MPT (Sports) · Sports Physiotherapy Clinic</p>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

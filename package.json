@@ -1,0 +1,14 @@
+{
+  "name": "physio-website",
+  "version": "1.0.0",
+  "description": "Physiotherapy clinic website — vanilla frontend + Vercel serverless API + Supabase (PostgreSQL)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node local-dev.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.45.4",
+    "express": "^4.19.2"
+  }
+}
