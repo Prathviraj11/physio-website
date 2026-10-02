@@ -3,7 +3,7 @@ export default function Header() {
     <header className="site-header">
       <div className="container nav-wrap">
         <span className="logo">
-          Dr. <span>[Name]</span>
+          Dr. <span>SHWETA S</span>
         </span>
         <nav>
           <a href="#about">About</a>

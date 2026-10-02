@@ -47,7 +47,7 @@ export default function TestimonialForm({ onSuccess }) {
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. Rahul S."
+              placeholder="e.g. Sudeep S."
               maxLength={100}
             />
           </div>

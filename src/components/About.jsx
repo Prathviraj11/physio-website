@@ -9,17 +9,18 @@ export default function About() {
   return (
     <section id="about" className="section">
       <div className="container">
-        <h2 className="section-title">About Dr. [Name]</h2>
+        <h2 className="section-title">About Dr.SHWETA S</h2>
         <div className="about-grid">
           <div className="about-text">
             <p>
               With a <strong>Master of Physiotherapy (MPT) in Sports Medicine</strong>,
-              Dr. [Name] brings advanced clinical expertise to every session. She is
-              currently practicing as a <strong>full-time sports physiotherapist</strong>,
-              helping athletes of every level return to the field with confidence.
+              I brings advanced clinical expertise to every session. Currently practicing as a
+              <strong>TO BE FILLED</strong>
+              {/* <strong>full-time sports physiotherapist</strong>,
+              helping athletes of every level return to the field with confidence. */}
             </p>
             <p>
-              Her practice blends modern manual therapy, movement science, and
+              My Treatment blends modern manual therapy, movement science, and
               sport-specific return-to-play protocols — so treatment isn't just
               about fixing an injury, but preventing the next one.
             </p>
