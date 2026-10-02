@@ -1,25 +1,22 @@
 // api/contact.js
 // Vercel serverless function — POST /api/contact
-// Sends a "Get in Touch" message to the clinic via Resend.
+// Forwards the "Get in Touch" form to Formspree.
+//
+// The email *recipient* is configured in the Formspree dashboard (Project
+// settings), NOT in code — so the form can later be re-pointed to Shweta's
+// address (or her own Formspree form) without touching any code.
 // Body: { name: string, email: string, message: string }
-
-import { Resend } from "resend";
-
-// Recipient = the clinic (Shweta). Change CONTACT_TO_EMAIL in Vercel's
-// Environment Variables to update it — no code change needed.
-const TO = process.env.CONTACT_TO_EMAIL || "praathviraj@gmail.com";
-// FROM must be an address on a domain verified in Resend.
-const FROM = process.env.CONTACT_FROM_EMAIL || "onboarding@resend.dev";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed. Use POST." });
   }
 
-  if (!process.env.RESEND_API_KEY) {
-    // Fail fast with a clear message if the key isn't configured yet.
+  // FORMSPREE_ENDPOINT looks like: https://api.formspree.io/f/abcd1234
+  const endpoint = process.env.FORMSPREE_ENDPOINT;
+  if (!endpoint) {
     return res.status(503).json({
-      error: "Email sending is not configured yet. Please try again later.",
+      error: "Contact form is not configured yet. Please try again later.",
     });
   }
 
@@ -39,40 +36,36 @@ export default async function handler(req, res) {
     });
   }
 
-  const resend = new Resend(process.env.RESEND_API_KEY);
-
   try {
-    const { error } = await resend.emails.send({
-      from: FROM,
-      to: TO,
-      subject: `New message from ${name.trim()}`,
-      // A readable HTML email for the clinic.
-      html: `
-        <h2>New message from the website</h2>
-        <table cellpadding="6" style="font-family: Arial, sans-serif; border-collapse: collapse;">
-          <tr><td style="font-weight:bold; color:#0e7490;">Name</td><td>${escapeHtml(name.trim())}</td></tr>
-          <tr><td style="font-weight:bold; color:#0e7490;">Email</td><td>${escapeHtml(email.trim())}</td></tr>
-          <tr><td style="font-weight:bold; color:#0e7490;">Message</td><td>${escapeHtml(message.trim())}</td></tr>
-        </table>
-      `,
+    const upstream = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        name: name.trim(),
+        email: email.trim(),
+        message: message.trim(),
+        // Formspree meta field: the email subject line.
+        _subject: `New message from ${name.trim()}`,
+      }),
     });
 
-    if (error) throw error;
+    if (!upstream.ok) {
+      // Log Formspree's response (rate limit, bad endpoint, etc.) for debugging.
+      const detail = await upstream.text();
+      console.error("Formspree error:", upstream.status, detail);
+      return res
+        .status(502)
+        .json({ error: "Could not send your message right now. Please try again later." });
+    }
 
     res.status(200).json({
       message: "Thank you for reaching out! We'll get back to you soon.",
     });
   } catch (err) {
-    console.error("contact email error:", err);
+    console.error("contact error:", err);
     res.status(500).json({ error: "Could not send your message. Please try again later." });
   }
-}
-
-// Prevent HTML injection in the email body.
-function escapeHtml(str) {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
 }
