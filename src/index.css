@@ -236,6 +236,7 @@ textarea { resize: vertical; min-height: 110px; }
   cursor: pointer;
   transition: color 0.1s ease, transform 0.1s ease;
   line-height: 1;
+  padding: 0;
 }
 .star.active, .star:hover { color: var(--star); }
 .star:active { transform: scale(1.2); }
